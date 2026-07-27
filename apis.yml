@@ -1,9 +1,33 @@
 aid: insightera
-name: Insightera
-description: Insightera is a company surfaced as a portfolio company of lightspeed-venture-partners and
-  added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment
-  pipeline.
+name: InsightEra
+description: >-
+  InsightEra Co., Ltd. is a Bangkok-based marketing technology and data
+  intelligence company that builds ready-to-use online marketing tools from
+  social network data. Its platform spans social research (social listening and
+  competitor analytics), social management (omni-channel management and
+  chatbots), social data and analytics (Customer Data Platform and CRM), and
+  social campaigns (campaign targeting and analytics), alongside a Thai NLP
+  service and a generative enterprise AI platform. InsightEra positions its
+  "Intelligence Model" as an ecosystem that connects external intelligence
+  (market, customers, competitors, society) with internal organizational data so
+  brands can turn insight into interaction and action. The company was surfaced
+  as a portfolio lead of lightspeed-venture-partners and added to the API
+  Evangelist network. No public developer API, documentation, or specification
+  surface was found during enrichment; this profile captures the company's
+  public identity only.
 url: https://raw.githubusercontent.com/api-evangelist/insightera/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://www.insightera.co.th/wp-content/uploads/2022/03/light-logo.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
@@ -12,12 +36,43 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
 - Company
+- Marketing Technology
+- Social Listening
+- Data Analytics
+- Customer Data Platform
+- CRM
+- Chatbot
+- Social Media Management
+- Natural Language Processing
+- Artificial Intelligence
 apis: []
+common:
+- type: DomainSecurity
+  url: security/insightera-domain-security.yml
+- type: Website
+  url: https://www.insightera.co.th/
+- type: About
+  url: https://www.insightera.co.th/about-us/
+- type: Support
+  url: https://www.insightera.co.th/contact-us/
+- type: Blog
+  url: https://www.insightera.co.th/resources/
+- type: Careers
+  url: https://www.insightera.co.th/careers/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/insightera-co.-ltd.
+- type: Facebook
+  url: https://www.facebook.com/InsightEraTH
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-07-20'
+  status: minimal
+  artifacts_added: 1
+  pass: local-v1

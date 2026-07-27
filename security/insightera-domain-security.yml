@@ -1,0 +1,16 @@
+generated: '2026-07-20'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.insightera.co.th
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 30 15:40:52 2026 GMT
+  hsts: false
+domains:
+- domain: insightera.co.th
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none
