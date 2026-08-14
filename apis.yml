@@ -12,31 +12,52 @@ description: >-
   (market, customers, competitors, society) with internal organizational data so
   brands can turn insight into interaction and action. The company was surfaced
   as a portfolio lead of lightspeed-venture-partners and added to the API
-  Evangelist network. No public developer API, documentation, or specification
-  surface was found during enrichment; this profile captures the company's
-  public identity only.
+  Evangelist network. InsightEra publishes one public developer surface: the
+  NLP Platform API (branded "ELI") at nlp.insightera.co.th, a RESTful Thai
+  natural-language-processing service documented with a live Swagger 2.0
+  contract covering tokenization, part-of-speech tagging, named entity
+  recognition, sentiment analysis, spell correction, OCR, address and email
+  extraction, clustering and a trainable custom text-classification model
+  service. The commercial SaaS products (DOM social listening, CENT
+  omni-channel management, Alice chatbot, Brian competitor analytics, 1Palette
+  customer analytics and GenA generative enterprise AI) run on customer-only
+  backends with no published contract.
 url: https://raw.githubusercontent.com/api-evangelist/insightera/refs/heads/main/apis.yml
 accessModel:
   pricing: unknown
-  onboarding: unknown
+  onboarding: sales
   trial: false
-  try_now: false
-  public: false
-  label: Unknown
-  confidence: low
-  source: []
-  generated: '2026-07-22'
-  method: derived
+  try_now: true
+  public: true
+  label: Public docs, sales-gated credentials
+  confidence: high
+  source:
+  - https://nlp.insightera.co.th/docs/v1.0/
+  - https://demo.nlp.insightera.co.th/
+  - https://www.insightera.co.th/contact-us/
+  generated: '2026-08-13'
+  method: searched
+  note: >-
+    The API reference and the machine-readable contract are fully public and need no login, and a
+    hosted demo application (demo.nlp.insightera.co.th) can be exercised anonymously - hence
+    public and try_now true. But there is no signup page anywhere in the site's own page inventory,
+    no pricing page, and no free tier: tokens are issued by InsightEra through the contact form.
+    The demo token the reference pre-fills returns HTTP 403 "This token has no quota allowed on
+    this service", so the try-it console cannot complete a call. Corrected by hand from the
+    derive-access-model.py heuristic, which read the apiKey scheme as self-serve signup.
 image: https://www.insightera.co.th/wp-content/uploads/2022/03/light-logo.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - lightspeed-venture-partners
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: enriched
+x-tier-reason: >-
+  Added as a lightspeed-venture-partners portfolio lead. A 2026-08-13 enrichment pass found a
+  real published contract - the NLP Platform API Swagger 2.0 document at
+  nlp.insightera.co.th/api/doc/doc.json - which the previous pass had missed.
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-20'
+modified: '2026-08-13'
 tags:
 - Company
 - Marketing Technology
@@ -48,10 +69,84 @@ tags:
 - Social Media Management
 - Natural Language Processing
 - Artificial Intelligence
-apis: []
+apis:
+- name: InsightEra NLP Platform API
+  description: >-
+    RESTful Thai natural-language-processing service, branded "ELI" in
+    InsightEra's own showcase, published with a live Swagger 2.0 contract at
+    nlp.insightera.co.th/docs/v1.0/. Twenty-three operations across two
+    resource groups: an `nlp` group of stateless text services (Thai text
+    tokenization, part-of-speech tagging, named entity recognition, sentiment
+    analysis, spell correction, text cleaning, clustering, common-phrase
+    detection, country detection, datetime parsing, address extraction, email
+    extraction, similar-word lookup, OCR and a QA endpoint marked coming soon)
+    and a `classification` group that trains, retrains, inspects, renames and
+    deletes customer-owned text-classification models and runs predictions
+    against them. Every operation authenticates with a required `token` query
+    parameter.
+  humanURL: https://nlp.insightera.co.th/docs/v1.0/
+  baseURL: https://nlp.insightera.co.th/api
+  tags:
+  - Natural Language Processing
+  - Thai NLP
+  - Text Analytics
+  - Sentiment Analysis
+  - Named Entity Recognition
+  - Text Classification
+  - OCR
+  - Machine Learning
+  properties:
+  - type: OpenAPI
+    url: openapi/insightera-nlp-platform-openapi.yml
+  - type: Swagger
+    url: openapi/_original/insightera-nlp-platform-openapi.json
+  - type: APIReference
+    url: https://nlp.insightera.co.th/docs/v1.0/
+  - type: Documentation
+    url: https://nlp.insightera.co.th/docs/v1.0/
+  - type: Console
+    url: https://demo.nlp.insightera.co.th/
 common:
+- type: AgenticAccess
+  url: agentic-access/insightera-agentic-access.yml
 - type: DomainSecurity
   url: security/insightera-domain-security.yml
+- type: Authentication
+  url: authentication/insightera-authentication.yml
+- type: Conventions
+  url: conventions/insightera-conventions.yml
+- type: ErrorCatalog
+  url: errors/insightera-problem-types.yml
+- type: DataModel
+  url: data-model/insightera-data-model.yml
+- type: Conformance
+  url: conformance/insightera-conformance.yml
+- type: Lifecycle
+  url: lifecycle/insightera-lifecycle.yml
+- type: RateLimits
+  url: rate-limits/insightera-rate-limits.yml
+- type: Plans
+  url: plans/insightera-plans-pricing.yml
+- type: Packages
+  url: packages/insightera-packages.yml
+- type: Overlay
+  url: overlays/insightera-nlp-platform-overlay.yaml
+- type: LLMsTxt
+  url: llms/insightera-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Documentation
+  url: https://nlp.insightera.co.th/docs/v1.0/
+- type: APIReference
+  url: https://nlp.insightera.co.th/docs/v1.0/
+- type: Console
+  url: https://demo.nlp.insightera.co.th/
+- type: TermsOfService
+  url: https://www.insightera.co.th/terms-of-service/
+- type: PrivacyPolicy
+  url: https://www.insightera.co.th/privacy-policy/
+- type: Products
+  url: https://www.insightera.co.th/products/
 - type: Website
   url: https://www.insightera.co.th/
 - type: About
@@ -72,7 +167,7 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 x-enrichment:
-  date: '2026-07-20'
-  status: minimal
-  artifacts_added: 1
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 21
   pass: local-v1
