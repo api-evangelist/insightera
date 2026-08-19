@@ -1,0 +1,57 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/insightera-nlp-platform-openapi.yml
+docs: https://nlp.insightera.co.th/docs/v1.0/
+note: >-
+  The published Swagger 2.0 document declares no `securityDefinitions` block. Authentication is
+  instead carried as an ordinary required request parameter — a `token` string in the query
+  string — repeated on all 23 operations. This artifact is derived from those parameter
+  declarations plus an observed live response, because the spec's own security machinery is
+  unused. That is the single largest contract-quality gap on this API: an agent or code
+  generator reading the spec sees no security scheme at all and will emit an unauthenticated
+  client.
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - query
+  oauth2_flows: []
+  openid_connect: false
+  mutual_tls: false
+  schemes_declared_in_spec: 0
+schemes:
+- name: token
+  type: apiKey
+  in: query
+  parameter: token
+  required: true
+  declared_as_security_scheme: false
+  applies_to_operations: 23
+  description: >-
+    Per-account service token issued by InsightEra. Passed as `?token=<value>` on every request.
+    The public API reference pre-populates a shared demo token in the Swagger UI "try it"
+    console; that token is quota-limited and returns HTTP 403 on the live service.
+  sources:
+  - openapi/insightera-nlp-platform-openapi.yml
+observed:
+  probed: '2026-08-13'
+  missing_or_invalid_token:
+    http_status: 400
+    body: '{"message":"Invalid session token"}'
+    note: >-
+      The spec documents 401 Unauthorized for auth failure; the live service answers HTTP 400
+      with a flat `message` envelope. Spec and runtime disagree.
+  quota_exhausted_token:
+    http_status: 403
+    body: '{"message":"This token has no quota allowed on this service"}'
+    note: Per-token, per-service quota enforcement observed on the published demo token.
+issuance:
+  self_service: false
+  process: Contact InsightEra sales/support; no public signup or key-issuance page was found.
+  contact: dev@insightera.co.th
+  source: openapi/_original/insightera-nlp-platform-openapi.json (info.contact)
+gaps:
+- No securityDefinitions in the OpenAPI/Swagger document.
+- Credential travels in the query string, so it lands in server logs, proxy logs and browser
+  history; a header or Authorization bearer scheme would be the standard remedy.
+- No OAuth 2.0, no OpenID Connect, no scopes, no key rotation or expiry policy published.

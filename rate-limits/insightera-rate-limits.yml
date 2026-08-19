@@ -1,0 +1,56 @@
+generated: '2026-08-13'
+method: probed
+source: https://nlp.insightera.co.th/docs/v1.0/
+limit_count: 0
+note: >-
+  InsightEra documents no numeric rate limits, but the live API demonstrably enforces a per-token,
+  per-service QUOTA — so this is not an absence of limiting, it is an absence of SIGNALLING. The
+  quota was observed directly: a POST to /nlp/tokenize carrying the demo token published in
+  InsightEra's own Swagger UI returned HTTP 403 with
+  `{"message":"This token has no quota allowed on this service"}`. No RateLimit-*, X-RateLimit-*
+  or Retry-After header is returned on any response, and HTTP 429 appears nowhere in the contract,
+  so a client cannot discover its allowance, its remaining balance, or when it resets. It can only
+  discover that it is out.
+limits: []
+enforcement:
+  enforced: true
+  model: per-token per-service quota
+  documented: false
+  status_on_exhaustion: 403
+  body_on_exhaustion: '{"message":"This token has no quota allowed on this service"}'
+  status_429_used: false
+  retry_after: false
+response_headers:
+  ratelimit_standard: []
+  x_ratelimit: []
+  retry_after: false
+  observed_headers:
+  - server
+  - date
+  - content-type
+  - content-length
+  - strict-transport-security
+  note: >-
+    Full response header set observed on a live call. Nothing carries quota, limit, remaining,
+    reset or retry information.
+timeouts:
+  status: 408
+  documented: true
+  note: >-
+    HTTP 408 Request Timeout is declared on all 23 operations, but no timeout budget, no maximum
+    payload size and no maximum batch length (`texts`/`samples` arrays) are published, so a caller
+    cannot size a request to stay under it.
+evidence:
+- url: https://nlp.insightera.co.th/api/nlp/tokenize?token=<published-demo-token>
+  method: POST
+  status: 403
+  probed: '2026-08-13'
+  note: quota enforcement observed live using the token InsightEra pre-fills in its own reference
+- url: https://nlp.insightera.co.th/api/nlp/tokenize
+  method: POST
+  status: 400
+  probed: '2026-08-13'
+  note: no-token request; returns 400 "Invalid session token" rather than the documented 401
+- url: https://nlp.insightera.co.th/docs/v1.0/
+  status: 200
+  note: full API reference; contains no rate-limit or quota documentation

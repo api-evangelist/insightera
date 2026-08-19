@@ -1,0 +1,97 @@
+generated: '2026-08-13'
+method: probed
+source: live HTTP probes of every InsightEra host in apis.yml and the OpenAPI host
+result: none
+note: >-
+  InsightEra serves no /.well-known/ discovery documents on any host. Recorded as an absence with
+  evidence. IMPORTANT: the marketing host www.insightera.co.th is WordPress with a catch-all that
+  answers HTTP 200 with the 173KB homepage for EVERY unknown path, including every /.well-known/
+  path below. Those 200s are soft-200 false positives, not documents — each was byte-compared to
+  the homepage and is identical. The API host nlp.insightera.co.th returns honest 404s. No
+  WellKnown or SecurityTxt pointer is emitted, because nothing was served.
+hosts:
+- host: https://nlp.insightera.co.th
+  role: api
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://www.insightera.co.th
+  role: website
+  catch_all: true
+  catch_all_note: >-
+    Every path returns HTTP 200 with the identical 173222-byte WordPress homepage. Treated as a
+    miss on all paths.
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    document: false
+    reason: soft-200 HTML homepage
+  - path: /.well-known/openid-configuration
+    status: 200
+    document: false
+    reason: soft-200 HTML homepage
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    document: false
+    reason: soft-200 HTML homepage
+  - path: /.well-known/api-catalog
+    status: 200
+    document: false
+    reason: soft-200 HTML homepage
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    document: false
+    reason: soft-200 HTML homepage
+  - path: /.well-known/agent-card.json
+    status: 200
+    document: false
+    reason: soft-200 HTML homepage
+  - path: /.well-known/agent.json
+    status: 200
+    document: false
+    reason: soft-200 HTML homepage
+  - path: /llms.txt
+    status: 200
+    document: false
+    reason: soft-200 HTML homepage
+- host: https://demo.nlp.insightera.co.th
+  role: console
+  documents:
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://1palette.insightera.co.th
+  role: product
+  documents:
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+summary:
+  hosts_probed: 4
+  documents_served: 0
+  security_txt: false
+  agent_card: false
+  openid_configuration: false
+  api_catalog: false

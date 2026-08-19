@@ -1,0 +1,64 @@
+generated: '2026-08-13'
+method: searched
+source: registry searches across npm, PyPI, RubyGems, crates.io, NuGet, Maven Central, pkg.go.dev, Packagist
+result: none
+note: >-
+  InsightEra ships no first-party client library in any public package registry. A caller of the
+  NLP Platform API must hand-roll an HTTP client. Recorded as a verified zero, not an unchecked
+  gap — the registries probed and what they returned are listed below. No `SDKs` pointer is
+  emitted, because there is no SDK.
+packages: []
+package_count: 0
+official_package_count: 0
+registries_checked:
+- registry: npm
+  query: insightera
+  endpoint: https://registry.npmjs.org/-/v1/search?text=insightera
+  results: 0
+- registry: pypi
+  queries:
+  - insightera
+  - insightera-nlp
+  - eli-nlp
+  endpoint: https://pypi.org/pypi/<name>/json
+  results: 0
+  detail: all three returned HTTP 404
+- registry: rubygems
+  query: insightera
+  endpoint: https://rubygems.org/api/v1/search.json?query=insightera
+  results: 0
+- registry: crates.io
+  query: insightera
+  endpoint: https://crates.io/api/v1/crates?q=insightera
+  results: 0
+- registry: nuget
+  query: insightera
+  endpoint: https://azuresearch-usnc.nuget.org/query?q=insightera
+  results: 0
+- registry: packagist
+  query: insightera
+  endpoint: https://packagist.org/search.json?q=insightera
+  results: 4
+  first_party: 0
+  detail: >-
+    Four fuzzy matches on "insight", none InsightEra's — insightbase/revolut-merchant-api-nette,
+    insightbase/invoice-parser-nette, azaharizaman/nexus-laravel-insight-operations-adapter,
+    azaharizaman/nexus-insight-operations.
+- registry: pkg.go.dev
+  query: proxy.golang.org/github.com/insightera/nlp
+  results: 0
+  detail: HTTP 404
+- registry: maven-central
+  query: insightera
+  endpoint: https://search.maven.org/solrsearch/select?q=insightera
+  results: null
+  detail: >-
+    Not reachable — the Maven Central search endpoint timed out on two attempts during this pass.
+    Recorded as unchecked rather than as a zero.
+source_code:
+  github_org: null
+  note: >-
+    No InsightEra Co., Ltd. GitHub organization could be confirmed. A github.com/insightera
+    account exists holding `Bigdata-insightera` and `insightera-v1-2025`, but nothing on
+    insightera.co.th, in the API reference, or in the spec links to it, so it is NOT claimed as
+    first-party here. The docs and spec reference no source repository at all.

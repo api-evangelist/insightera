@@ -1,0 +1,280 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for InsightEra NLP Platform API
+  version: 1.0.0
+extends: openapi/insightera-nlp-platform-openapi.yml
+x-generated: '2026-08-13'
+x-method: generated
+x-source: openapi/insightera-nlp-platform-openapi.yml
+x-note: 'Non-destructive enhancements over InsightEra''s published Swagger 2.0 contract. The original
+  is kept verbatim at openapi/_original/insightera-nlp-platform-openapi.json and is never mutated. These
+  actions close the four contract defects found during enrichment: no operationIds on any of the 23 operations,
+  no securityDefinitions despite a mandatory credential, no tag objects, and an undeclared HTTP 403 quota
+  response that the live service actually returns. info.termsOfService is also redirected from the Swagger
+  generator placeholder to InsightEra''s real terms page.'
+actions:
+- target: $.info
+  description: Record the API Evangelist enrichment provenance on the document.
+  update:
+    x-apievangelist-enriched: '2026-08-13'
+    x-apievangelist-source: https://nlp.insightera.co.th/api/doc/doc.json
+- target: $.info
+  description: info.termsOfService is left at the Swagger generator placeholder http://swagger.io/terms/.
+    InsightEra's real terms are at insightera.co.th/terms-of-service/.
+  update:
+    termsOfService: https://www.insightera.co.th/terms-of-service/
+- target: $
+  description: The document declares no securityDefinitions even though every operation requires a token.
+    Declare it so generated clients authenticate.
+  update:
+    securityDefinitions:
+      token:
+        type: apiKey
+        name: token
+        in: query
+        description: Per-account service token issued by InsightEra. Note it travels in the query string,
+          so it is exposed to logs and proxies.
+    security:
+    - token: []
+- target: $
+  description: The document declares no tag objects for the two tags its operations use.
+  update:
+    tags:
+    - name: nlp
+      description: Stateless Thai natural-language transforms.
+    - name: classification
+      description: Train, manage and predict against customer-owned text-classification models.
+- target: $.paths['/nlp/address-extractor'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: extractAddress
+- target: $.paths['/nlp/classification/change-model-name'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: renameClassifierModel
+- target: $.paths['/nlp/classification/delete'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: deleteClassifierModel
+- target: $.paths['/nlp/classification/model'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: getClassifierModel
+- target: $.paths['/nlp/classification/predict'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: predictClassification
+- target: $.paths['/nlp/classification/retrain'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: retrainClassifier
+- target: $.paths['/nlp/classification/token'].get
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: listClassifierModels
+- target: $.paths['/nlp/classification/train'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: trainClassifier
+- target: $.paths['/nlp/classification/train-with-file'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: trainClassifierFromFile
+- target: $.paths['/nlp/cleaning'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: cleanText
+- target: $.paths['/nlp/clustering'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: clusterTexts
+- target: $.paths['/nlp/common-phrase'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: extractCommonPhrases
+- target: $.paths['/nlp/country'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: detectCountry
+- target: $.paths['/nlp/datetime-parser-new'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: parseDatetime
+- target: $.paths['/nlp/extract-email'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: extractEmail
+- target: $.paths['/nlp/ner'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: recognizeNamedEntities
+- target: $.paths['/nlp/ocr'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: ocrImage
+- target: $.paths['/nlp/pos'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: tagPartsOfSpeech
+- target: $.paths['/nlp/qa'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: answerQuestion
+- target: $.paths['/nlp/sentiment-new'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: analyzeSentiment
+- target: $.paths['/nlp/similar'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: findSimilarWords
+- target: $.paths['/nlp/spell-correction'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: correctSpelling
+- target: $.paths['/nlp/tokenize'].post
+  description: No operationId is published; assign a stable one for code generation.
+  update:
+    operationId: tokenizeText
+- target: $.paths['/nlp/qa'].post
+  description: Summary says "QA (coming soon)" — mark it so tooling does not generate a live client.
+  update:
+    x-status: coming-soon
+- target: $.paths['/nlp/address-extractor'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/classification/change-model-name'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/classification/delete'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/classification/model'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/classification/predict'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/classification/retrain'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/classification/token'].get.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/classification/train'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/classification/train-with-file'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/cleaning'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/clustering'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/common-phrase'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/country'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/datetime-parser-new'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/extract-email'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/ner'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/ocr'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/pos'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/qa'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/sentiment-new'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/similar'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/spell-correction'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service
+- target: $.paths['/nlp/tokenize'].post.responses
+  description: HTTP 403 (per-token quota exhausted) is returned by the live service but declared on no
+    operation. Observed 2026-08-13.
+  update:
+    '403':
+      description: Forbidden - this token has no quota allowed on this service

@@ -1,0 +1,79 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/insightera-nlp-platform-openapi.yml
+docs: https://nlp.insightera.co.th/docs/v1.0/
+note: >-
+  Derived from the published Swagger 2.0 contract and from probing InsightEra's public hosts on
+  2026-08-13. Almost every field here is an absence, and the absences were verified rather than
+  assumed — see `probes` below.
+versioning:
+  scheme: docs-path
+  current: '1.0'
+  docs: https://nlp.insightera.co.th/docs/v1.0/
+  api_path: /api
+  api_path_versioned: false
+  versions_published:
+  - '1.0'
+  note: >-
+    The reference lives under /docs/v1.0/ and info.version is "1.0", but the runtime base path is
+    an unversioned /api. /docs/v2.0/ returns 404. Two operation paths carry a `-new` suffix
+    (`/nlp/sentiment-new`, `/nlp/datetime-parser-new`), which is versioning by path-name drift:
+    the superseded originals are simply gone from the contract with no record of what changed or
+    when.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  deprecated_operations: []
+  note: >-
+    No operation carries `deprecated: true`. One operation — POST /nlp/qa — is summarised
+    "QA (coming soon)" in the live contract, i.e. it is published but not yet available, which is
+    the inverse problem: a caller cannot tell from the spec alone that it will not work.
+sla:
+  url: null
+  uptime_target: null
+  published: false
+status_page:
+  url: null
+  published: false
+  note: >-
+    No status page exists. status.insightera.co.th does not resolve, and insightera.statuspage.io
+    is Atlassian's own marketing site answering for an unclaimed subdomain — a false positive, not
+    a status page.
+changelog:
+  url: null
+  api_changelog_published: false
+  note: >-
+    insightera.co.th/resources/product-update/ is a marketing blog category (7 posts, most recent
+    2025-10-09) covering product features in Thai, not a dated API changelog. No API release notes,
+    no version history, no migration notes were found.
+support:
+  contact: dev@insightera.co.th
+  source: openapi/_original/insightera-nlp-platform-openapi.json (info.contact)
+  general: https://www.insightera.co.th/contact-us/
+license:
+  declared: Apache 2.0
+  url: http://www.apache.org/licenses/LICENSE-2.0.html
+  note: >-
+    Declared in info.license of the spec. This is the Swagger scaffold default and describes the
+    document, not the service; the service itself is commercial and quota-gated. Recorded as
+    published, not as an assertion about terms of use.
+terms_of_service:
+  declared_in_spec: http://swagger.io/terms/
+  note: >-
+    info.termsOfService is left at the Swagger generator's placeholder value pointing at
+    swagger.io, not at InsightEra's own terms at insightera.co.th/terms-of-service/. A defect in
+    the contract worth reporting to the provider.
+probes:
+- url: https://nlp.insightera.co.th/docs/v2.0/
+  status: 404
+- url: https://status.insightera.co.th/
+  status: 0
+  note: DNS does not resolve
+- url: https://insightera.statuspage.io/
+  status: 200
+  note: Atlassian Statuspage marketing page — unclaimed subdomain, not InsightEra's
+- url: https://www.insightera.co.th/resources/product-update/
+  status: 200
+  note: Marketing blog category, not an API changelog

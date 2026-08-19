@@ -1,0 +1,126 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/insightera-nlp-platform-openapi.yml
+note: >-
+  Derived from the 41 `definitions` in the published Swagger 2.0 contract. This API is
+  overwhelmingly a stateless transform surface: most definitions are per-operation Input/Output
+  or Input/Result envelope pairs with no cross-references between them, so the entity graph is
+  deliberately shallow. Only the `classification` group holds server-side state — a customer-owned
+  model identified by `model_id` — and that is the one real entity with relationships.
+entities:
+- name: ClassificationModel
+  description: >-
+    A customer-trained text-classification model held server-side by InsightEra. Created by
+    training, then predicted against, retrained, renamed, inspected and deleted.
+  identifier: model_id
+  identifier_type: string
+  secondary_identifier: model_name
+  owned_by: token
+  operations:
+    create: POST /nlp/classification/train
+    create_from_file: POST /nlp/classification/train-with-file
+    read: POST /nlp/classification/model
+    list_by_owner: GET /nlp/classification/token
+    update_name: POST /nlp/classification/change-model-name
+    retrain: POST /nlp/classification/retrain
+    predict: POST /nlp/classification/predict
+    delete: POST /nlp/classification/delete
+  schemas:
+  - record.SwagClassTrainRecord
+  - record.SwagClassTrainResult
+  - record.SwagClassModelInput
+  - record.SwagClassModelOutput
+  - record.SwagClassModelNameRecord
+  - record.SwagClassModelNameORecord
+  - record.SwagClassRetrainRecord
+  - record.SwagClassRetrainResult
+  - record.SwagClassPredictInput
+  - record.SwagClassPredictOutput
+  - record.SwagClassDeleteResult
+  - record.SwagClassTokenResult
+- name: Token
+  description: >-
+    The API credential, which doubles as the tenancy boundary. `GET /nlp/classification/token`
+    returns `model_id_list` — the set of models belonging to the calling token — so the token is
+    the implicit account entity in this data model.
+  identifier: token
+  identifier_type: string
+  schemas:
+  - record.SwagClassTokenResult
+relationships:
+- from: Token
+  to: ClassificationModel
+  kind: has_many
+  via: model_id_list
+  evidence: record.SwagClassTokenResult.model_id_list returned by GET /nlp/classification/token
+- from: ClassificationModel
+  to: Token
+  kind: belongs_to
+  via: token
+  evidence: >-
+    Every classification operation requires the `token` query parameter and resolves models within
+    that token's scope; no cross-token model access is exposed.
+stateless_transforms:
+  description: >-
+    The `nlp` tag group holds no server-side state. Each operation is a pure function over the
+    request body, with a dedicated Input schema and a dedicated Output/Result schema and no
+    identifiers to relate. Listed here so the absence of relationships reads as a finding rather
+    than an omission.
+  operations:
+  - path: /nlp/tokenize
+    input: record.SwagTokenizeInput
+    output: record.SwagTokenizeResult
+  - path: /nlp/pos
+    input: record.SwagPOSInput
+    output: record.SwagPOSOutput
+  - path: /nlp/ner
+    input: record.SwagNERInput
+    output: record.SwagNEROutput
+  - path: /nlp/sentiment-new
+    input: record.SwagSentimentNInput
+    output: record.SwagSentimentNOutput
+  - path: /nlp/spell-correction
+    input: record.SwagSpellInput
+    output: record.SwagSpellResult
+  - path: /nlp/cleaning
+    input: record.SwagCleaningInput
+    output: record.SwagCleaningResult
+  - path: /nlp/clustering
+    input: record.SwagClusteringInput
+    output: record.SwagClusteringOutput
+  - path: /nlp/common-phrase
+    input: record.SwagCommonPhraseInput
+    output: record.SwagCommonPhraseOutput
+  - path: /nlp/country
+    input: record.SwagCountryInput
+    output: record.SwagCountryResult
+  - path: /nlp/datetime-parser-new
+    input: record.SwagDucklingInput
+    output: record.SwagDucklingNResult
+  - path: /nlp/address-extractor
+    input: record.SwagAddrInput
+    output: record.SwagAddr
+  - path: /nlp/extract-email
+    input: record.SwagEmailInput
+    output: record.SwagEmail
+  - path: /nlp/similar
+    input: record.SwagSimilarNInput
+    output: record.SwagSimilarNResult
+  - path: /nlp/qa
+    input: record.SwagQAInput
+    output: record.SwagQAOutput
+    status: coming soon
+  - path: /nlp/ocr
+    input: multipart/form-data (image)
+    output: record.SwagOCROutput
+summary:
+  definitions: 41
+  entities: 2
+  relationships: 2
+  stateless_transform_operations: 15
+  shared_schemas: 0
+  note: >-
+    Zero schema reuse across operations — every operation carries its own Input and Output
+    definition even where the payload shape is identical (`{texts: [...]}` recurs across NER, POS,
+    sentiment and email extraction under four different names). Recurring engine/status fields are
+    likewise duplicated rather than referenced.

@@ -1,0 +1,115 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/insightera-nlp-platform-openapi.yml
+docs: https://nlp.insightera.co.th/docs/v1.0/
+note: >-
+  Cross-cutting request/response semantics for the InsightEra NLP Platform API, derived from the
+  published Swagger 2.0 contract and from live responses observed on 2026-08-13. InsightEra
+  publishes no prose conventions guide, so anything not stated here is genuinely undocumented
+  rather than merely uncaptured.
+authentication:
+  style: api-key-in-query
+  parameter: token
+  transport: query string
+  see: authentication/insightera-authentication.yml
+base_url: https://nlp.insightera.co.th/api
+media_types:
+  request:
+  - application/json
+  - multipart/form-data
+  response:
+  - application/json
+  note: >-
+    Two operations take multipart form data instead of JSON — `/nlp/ocr` (an `image` file part)
+    and `/nlp/classification/train-with-file` (a `file` part plus `model_name`). Everything else
+    is JSON in, JSON out.
+idempotency:
+  supported: false
+  header: null
+  evidence: >-
+    No Idempotency-Key parameter or header appears anywhere in the spec, and no retry-safety
+    contract is documented. Twenty-two of the twenty-three operations are POST; the stateless
+    `nlp` analysis calls are naturally repeatable, but the `classification` train/retrain/delete
+    operations mutate customer-owned models with no replay protection.
+pagination:
+  supported: false
+  evidence: >-
+    No limit/offset/cursor/page parameters exist in the spec. Batch endpoints instead accept an
+    array in the request body (`texts`, `samples`) and return a matching array, so the caller
+    controls batch size directly and there is nothing to page through.
+batching:
+  supported: true
+  style: request-body-array
+  fields:
+  - texts
+  - samples
+  - data
+  note: >-
+    Several operations are natively batch — `/nlp/ner`, `/nlp/pos`, `/nlp/sentiment-new` and
+    `/nlp/extract-email` take a `texts` array; `/nlp/clustering`, `/nlp/common-phrase` and
+    `/nlp/classification/predict` take a `samples` array. No published maximum batch size.
+field_expansion:
+  supported: false
+sparse_fieldsets:
+  supported: false
+metadata:
+  supported: false
+request_tracing:
+  request_id_header: null
+  observed_response_headers:
+  - server
+  - date
+  - content-type
+  - content-length
+  - strict-transport-security
+  note: >-
+    No correlation or request-id header is returned. A caller has no server-side handle to quote
+    when reporting a failed call to support.
+versioning:
+  scheme: uri-path-on-docs
+  current: '1.0'
+  api_path_versioned: false
+  evidence: >-
+    The reference is published at /docs/v1.0/ and info.version is "1.0", but the API base path is
+    an unversioned /api. There is no version selector, no version header, and no second version
+    published, so a breaking change would have nowhere to land except the live path.
+  see: lifecycle/insightera-lifecycle.yml
+async_execution:
+  supported: true
+  parameter: is_sync
+  operations:
+  - POST /nlp/classification/train
+  - POST /nlp/classification/retrain
+  note: >-
+    Model training accepts an `is_sync` flag, so a caller can run training synchronously or fire
+    it and poll. No callback/webhook is offered for completion, and no job-status operation is
+    documented beyond `/nlp/classification/model` and `/nlp/classification/token`.
+error_envelope:
+  format: flat-json
+  rfc9457: false
+  shape: '{"message": "<human-readable string>"}'
+  observed:
+  - http_status: 400
+    body: '{"message":"Invalid session token"}'
+  - http_status: 403
+    body: '{"message":"This token has no quota allowed on this service"}'
+  note: >-
+    Errors carry no machine-readable code, no type URI and no field-level detail — only an
+    English prose string. Callers must string-match to branch on failure.
+  see: errors/insightera-problem-types.yml
+rate_limit_signaling:
+  headers: []
+  status_on_exhaustion: 403
+  body_on_exhaustion: '{"message":"This token has no quota allowed on this service"}'
+  retry_after: false
+  note: >-
+    Quota is enforced per token per service, but no RateLimit-*/X-RateLimit-* headers and no
+    Retry-After are returned, so a client cannot see how much quota remains or when it resets —
+    it only learns it is out, after the fact.
+  see: rate-limits/insightera-rate-limits.yml
+transport_security:
+  https_only: true
+  hsts: true
+  hsts_max_age: 31536000
+  observed_on: https://nlp.insightera.co.th/
+  see: security/insightera-domain-security.yml

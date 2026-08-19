@@ -1,0 +1,463 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NLP Platform API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "nlp",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Address extractor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/address-extractor",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "A service for converting a plain text address to a structural address where each part of the address are extracted and labeled. A complete list of parts which will be extracted are as follow:\n1. Name\n2. Phone number\n3. Tambol\n4. Amphoe\n5. Province\n6. Postcode\n7. Probability of an input text being an address (0.0 to 1.0)"
+        },
+        {
+          "info": {
+            "name": "Text cleaning",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/cleaning",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "A service for normalizing texts, especially texts from social media and chat which tend to be informal and purposely misspelled (or slang), into a cleaner version to ease further analysis:\n* 'keep_alphabet' If set, tokenization result which contains only one alphabet will be preserved (default: false).\n* 'keep_rt' if set, @RT from Twitter will be preserved (default: false).\n* 'keep_stopwords' if set, stopwords will be preserved (default: false).\n* 'keep_url' if set, urls will be preserved (defau"
+        },
+        {
+          "info": {
+            "name": "Text clustering",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/clustering",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "A service for organizing random texts into multiple groups. The service will try grouping them into a number of group defined by a user (<i>k</i>).\n* <i>engine</i>: machine learning algorithm: k-mean (default), hierarchy\n* <i>feature_engine</i>: feature extraction method: bag-of-word (default), word-vector\n* <i>max_k</i>: maximum cluster (optional)\n* <i>k</i>: number of cluster (optional). If k is not provided, the service will try to find the least k that makes good cluster automatically."
+        },
+        {
+          "info": {
+            "name": "Common phrase",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/common-phrase",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "A clustering service specifically customized for chat log.\n<i>k</i>: a number of cluster (group) to separate texts into."
+        },
+        {
+          "info": {
+            "name": "Country detection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/country",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "A service for finding a destination country in an address. The service will return the official name of the country and ISO country code.\n* User can provide additional aliases for each countries using <i>extra_dict</i> option.\n* By default, the service will only return one country. If <i>multiple</i> is set, it will return all countries found in an input text."
+        },
+        {
+          "info": {
+            "name": "Datetime parser",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/datetime-parser-new",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "A service for converting date and time entities in a plain text, e.g. 17 มกราคม 2020, today, tomorrow, 2 hrs ago to a timestamp. A service supports both Thai and English, and supports both absolute time (24 มิถุนายน 2563) and relative time (เมื่อวาน).\n"
+        },
+        {
+          "info": {
+            "name": "Email extractor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/extract-email",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "A service for detect emamil(s) in plain text."
+        },
+        {
+          "info": {
+            "name": "Named Entity Recognition",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/ner",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "A service which locate and classify named entities into pre-defined categories such as name, locaton and time."
+        },
+        {
+          "info": {
+            "name": "OCR",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/ocr",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "A servie for extracting text from an image such as a printed paper or a photograph which contains texts."
+        },
+        {
+          "info": {
+            "name": "POS",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/pos",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "A service which classify words in a given sentence into a paricular part-of-speech (Noun, Verb, Pronoun)"
+        },
+        {
+          "info": {
+            "name": "QA (coming soon)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/qa",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "A service for answering questions based on a given story. A user must provide both story and questions in single request."
+        },
+        {
+          "info": {
+            "name": "Sentiment analysis",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/sentiment-new",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "A service for identifying and categorizing opinions expressed in a given text. The result ranges between -1 (negative) and 1 (positive)."
+        },
+        {
+          "info": {
+            "name": "Similar words",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/similar",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "A service for finding semantically related words for a given word. Example use cases are recommendation, clustering and word normalization.\n* 'top' is a number of expecting words in the result."
+        },
+        {
+          "info": {
+            "name": "Spell correction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/spell-correction",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "A service which auto-correct and recommends correct words for misspelling words in a sentence."
+        },
+        {
+          "info": {
+            "name": "Thai text tokenization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/tokenize",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "A service for breaking (tokenize) a sentence into a sequence of words. Only support Thai and English.\n<i>engine</i>: specify tokenization algorithm to be used, available choices are:\n* <i>longest_match</i>: Simple longest matching\n* <i>longest_inse</i>: Add some rule-based improvement to 'longest_match'\n* <i>longest_tcc</i>: Apply TCC after 'longest_match'\n* <i>deep</i>: LSTM with one character context\n* <i>deep_context_10</i>: LSTM with 10 (front) + 10 (back) characters context\n* <i>deep_contex"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "classification",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Change model name",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/classification/change-model-name",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "Change existing model name.\n* <i>modelId</i>: An ID from training service which represent an actual model to be used."
+        },
+        {
+          "info": {
+            "name": "Delete model",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/classification/delete",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "Delete model"
+        },
+        {
+          "info": {
+            "name": "Model detail",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/classification/model",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "Retrieve model details:\n* Model name\n* Model status\n* Created date\n* Number of samples in each class"
+        },
+        {
+          "info": {
+            "name": "Predict",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/classification/predict",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "Predict classes of input texts using a model previously trained. In each training request, a user will receive a model ID. The ID is required for this service so that it knows which model to use for prediction. Model ID and a secret token must be matched (the same token used when trained a model) in order to continue using this service.\n* <i>modelId</i>: An ID from training service which represent an actual model to be used."
+        },
+        {
+          "info": {
+            "name": "Retrain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/classification/retrain",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "continue training a model based on an existing model. Users should provide only new information the model has never learnt before. A <i>model_id</i> must be provided otherwise the service will response an error."
+        },
+        {
+          "info": {
+            "name": "Model Details by Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/nlp/classification/token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "Retrieve all models belong to a given token:\n* Model name\n* Model status\n* Created date\n* Number of sample in each class"
+        },
+        {
+          "info": {
+            "name": "Train",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/classification/train",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "Train a classification model. The general idea begins with a user provides dataset with labels, our service uses these information to build a classification model and give back a model ID. A user then use this model ID with prediction service to have model classified users' text. Every classification models can be accessed only if users provide the same token used during training process. This means all models are protected. Only those who have access to a secret token can use the model.\n* <i>mo"
+        },
+        {
+          "info": {
+            "name": "Train with file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/nlp/classification/train-with-file",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Token"
+              }
+            ]
+          },
+          "docs": "Train a classification model with file. The general idea begins with a user provides dataset with labels, our service uses these information to build a classification model and give back a model ID. A user then use this model ID with prediction service to have model classified users' text. Every classification models can be accessed only if users provide the same token used during training process. This means all models are protected. Only those who have access to a secret token can use the mode"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

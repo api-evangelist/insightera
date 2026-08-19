@@ -1,0 +1,32 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.insightera.co.th/
+result: none
+plan_count: 0
+note: >-
+  InsightEra publishes no pricing of any kind — not for the NLP Platform API and not for its SaaS
+  products (DOM, CENT, Alice, Brian, 1Palette, GenA). Every commercial path funnels through a
+  contact/demo form. There is no /pricing page: www.insightera.co.th/pricing/ returns HTTP 200 but
+  serves the WordPress catch-all homepage (identical 173222 bytes), which is an absence, not a page.
+  The full page inventory was enumerated from the site's own WordPress REST index and contains no
+  pricing, plans or billing page.
+plans: []
+access_model:
+  self_service_signup: false
+  free_tier: false
+  public_trial: false
+  sales_gated: true
+  note: >-
+    API access is issued as a `token` by InsightEra. The reference's pre-filled demo token returns
+    HTTP 403 "This token has no quota allowed on this service" on the live API, so even the
+    published try-it console cannot execute a call without a sales conversation.
+evidence:
+- url: https://www.insightera.co.th/pricing/
+  status: 200
+  note: soft-200 WordPress catch-all serving the homepage; no pricing page exists
+- url: https://www.insightera.co.th/wp-json/wp/v2/pages?per_page=100
+  status: 200
+  note: full page inventory enumerated — no pricing/plans/billing page present
+- url: https://www.insightera.co.th/contact-us/
+  status: 200
+  note: the actual commercial entry point

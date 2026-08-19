@@ -1,0 +1,92 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/insightera-nlp-platform-openapi.yml
+note: >-
+  Cross-cutting standards conformance for the InsightEra NLP Platform API, derived from the
+  published Swagger 2.0 contract plus live responses observed 2026-08-13. InsightEra publishes no
+  compliance or certification program that could be found on its public site, so no `Compliance`
+  pointer is emitted from this file.
+standards:
+- id: openapi-3
+  conforms: false
+  evidence: >-
+    The published contract is Swagger 2.0 (`"swagger": "2.0"`), not OpenAPI 3.x. It parses and is
+    machine-readable, but it is two major versions behind and predates components/$ref reuse,
+    callbacks, and the security models modern tooling expects.
+- id: swagger-2
+  conforms: true
+  evidence: >-
+    openapi/_original/insightera-nlp-platform-openapi.json declares "swagger" version "2.0"
+- id: oauth2
+  conforms: false
+  evidence: No securityDefinitions of type oauth2; auth is a bare `token` query parameter.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on nlp.insightera.co.th.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors return `{"message": "..."}` as application/json. No application/problem+json, no type
+    URI, no machine-readable code.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on both www.insightera.co.th and nlp.insightera.co.th.
+- id: rfc8615-well-known
+  conforms: false
+  evidence: >-
+    Every /.well-known/ path probed returns 404 on nlp.insightera.co.th; the marketing host answers
+    200 with its WordPress catch-all page for all of them, which is not a document.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No deprecation or sunset policy published; no Sunset/Deprecation headers observed.
+- id: rate-limit-headers
+  conforms: false
+  evidence: >-
+    Quota is enforced (HTTP 403 observed) but no RateLimit-*/X-RateLimit-* headers and no
+    Retry-After are returned.
+- id: idempotency-key
+  conforms: false
+  evidence: No Idempotency-Key parameter or header anywhere in the spec.
+- id: pagination
+  conforms: false
+  evidence: >-
+    No limit/offset/cursor parameters. Not a defect on its own — the surface is batch-in/batch-out
+    with no collection endpoints to page.
+- id: json-api
+  conforms: false
+  evidence: Plain JSON payloads; no JSON:API document structure.
+- id: hsts
+  conforms: true
+  evidence: >-
+    nlp.insightera.co.th returns strict-transport-security max-age=31536000 on live responses.
+    Note the marketing host www.insightera.co.th does not.
+- id: tls-1-3
+  conforms: true
+  evidence: security/insightera-domain-security.yml — TLSv1.3 on both www and nlp hosts.
+- id: dnssec
+  conforms: false
+  evidence: security/insightera-domain-security.yml — insightera.co.th is not DNSSEC signed.
+- id: caa
+  conforms: false
+  evidence: security/insightera-domain-security.yml — no CAA records on insightera.co.th.
+- id: spf
+  conforms: true
+  evidence: security/insightera-domain-security.yml — SPF record present.
+- id: dmarc
+  conforms: true
+  partial: true
+  evidence: >-
+    DMARC record present but policy is p=none, which monitors without enforcing. Not a blocking
+    posture.
+- id: pdpa-thailand
+  conforms: unknown
+  evidence: >-
+    InsightEra publishes a Thai-language privacy policy at insightera.co.th/privacy-policy/ and
+    operates as a Thai data processor, but no explicit PDPA compliance statement, certification or
+    DPA was found on the public site. Recorded as unknown rather than asserted.
+summary:
+  conforming: 5
+  not_conforming: 12
+  unknown: 1
+  certifications_published: []
+  compliance_program_published: false

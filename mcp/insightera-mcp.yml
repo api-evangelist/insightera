@@ -1,0 +1,121 @@
+generated: '2026-08-13'
+method: derived
+status: candidate
+source: openapi/insightera-nlp-platform-openapi.yml
+note: >-
+  InsightEra ships NO MCP server. This is a DERIVED CANDIDATE tool list only — a proposal showing
+  what an MCP server over the published NLP Platform API would expose, one tool per operation,
+  each inheriting its real input contract from the backing Swagger operation. Nothing here is
+  callable today. Searches of the docs, the site page inventory, npm (@modelcontextprotocol and
+  `insightera`) and public MCP registries returned nothing, and https://nlp.insightera.co.th/mcp
+  returns HTTP 404.
+pointer_emitted: false
+pointer_note: >-
+  No `type: MCPServer` pointer is wired into apis.yml for this file, and that is deliberate. That
+  pointer asserts a callable agent surface the provider serves; InsightEra serves none. Wiring it
+  from a derived candidate would credit the company with an MCP server it has not built. This file
+  is a design proposal for InsightEra, not a record of something they ship.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: derived
+  note: >-
+    No hosted endpoint and no installable package exists. `auth` is unknown rather than api-key
+    because there is no server whose auth model could be stated; the underlying REST API uses a
+    `token` query parameter.
+search_evidence:
+- url: https://nlp.insightera.co.th/mcp
+  status: 404
+- url: https://registry.npmjs.org/-/v1/search?text=insightera
+  status: 200
+  results: 0
+- url: https://nlp.insightera.co.th/docs/v1.0/
+  status: 200
+  note: full API reference; no mention of MCP, agents or tool calling
+- url: https://www.insightera.co.th/wp-json/wp/v2/pages?per_page=100
+  status: 200
+  note: full site page inventory; no MCP or developer/agent page
+server:
+  name: insightera-nlp
+  transport: http
+  url: null
+tools:
+- name: tokenize_thai_text
+  description: Segment Thai text into tokens using a selectable engine.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/tokenize
+- name: tag_parts_of_speech
+  description: Part-of-speech tagging over a batch of texts.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/pos
+- name: recognize_named_entities
+  description: Named entity recognition over a batch of texts.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/ner
+- name: analyze_sentiment
+  description: Sentiment analysis over a batch of texts with a selectable engine.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/sentiment-new
+- name: correct_spelling
+  description: Spell correction for a text string.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/spell-correction
+- name: clean_text
+  description: Normalize and clean raw text prior to analysis.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/cleaning
+- name: cluster_texts
+  description: Cluster a sample set with a selectable engine, feature engine and k/max_k.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/clustering
+- name: extract_common_phrases
+  description: Extract the top-k common phrases across a sample set.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/common-phrase
+- name: detect_country
+  description: Detect country references in text, optionally with an extra dictionary.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/country
+- name: parse_datetime
+  description: Parse natural-language date and time expressions from text.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/datetime-parser-new
+- name: extract_address
+  description: >-
+    Convert a plain-text Thai address into structured parts (name, phone, tambol, amphoe,
+    province, postcode) with an address-likelihood probability.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/address-extractor
+- name: extract_email
+  description: Extract email addresses from a batch of texts.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/extract-email
+- name: find_similar_words
+  description: Return the top-N words similar to a given word.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/similar
+- name: ocr_image
+  description: Extract text from an uploaded image.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/ocr
+- name: answer_question
+  description: Question answering over a supplied context. Marked "coming soon" in the contract.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/qa
+  status: unavailable
+- name: train_classifier
+  description: Train a text-classification model from labelled data, synchronously or async.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/classification/train
+- name: train_classifier_from_file
+  description: Train a classification model from an uploaded file.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/classification/train-with-file
+- name: retrain_classifier
+  description: Retrain an existing model by model id.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/classification/retrain
+- name: predict_classification
+  description: Run predictions for a sample set against a trained model.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/classification/predict
+- name: get_classifier_model
+  description: Retrieve detail for one model by model id.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/classification/model
+- name: list_classifier_models
+  description: List the model ids belonging to the calling token.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#GET /nlp/classification/token
+- name: rename_classifier_model
+  description: Change a model's display name.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/classification/change-model-name
+- name: delete_classifier_model
+  description: Delete a trained model.
+  source_operation: openapi/insightera-nlp-platform-openapi.yml#POST /nlp/classification/delete
+coverage:
+  rest_operations: 23
+  candidate_tools: 23
+  published_tools: 0

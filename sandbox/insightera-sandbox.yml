@@ -1,0 +1,56 @@
+generated: '2026-08-13'
+method: searched
+source: https://nlp.insightera.co.th/docs/v1.0/
+note: >-
+  InsightEra publishes no sandbox environment and no test/live key separation. What it does
+  publish is an interactive try-it console and a public showcase application, both of which run
+  against the PRODUCTION host — there is no separate test base URL. Captured because the
+  distinction matters to a caller: any successful call here is a real, quota-consuming production
+  call.
+test_live_separation:
+  supported: false
+  test_base_url: null
+  live_base_url: https://nlp.insightera.co.th/api
+  key_prefixes: []
+  mode_flag: null
+  note: One host, one credential type. No `test_`/`live_` prefix convention exists.
+consoles:
+- name: Swagger UI try-it console
+  url: https://nlp.insightera.co.th/docs/v1.0/
+  type: swagger-ui
+  executes_against: production
+  prefilled_credential: true
+  prefilled_credential_note: >-
+    Every operation in the spec declares a `default` value for the required `token` parameter, so
+    the Swagger UI arrives pre-populated with a shared demo token. That token is live-verified as
+    quota-exhausted: it returns HTTP 403 "This token has no quota allowed on this service". The
+    console therefore renders as though it is ready to use and cannot actually complete a call.
+    The literal token value is deliberately not reproduced in this repo.
+- name: ELI Showcase
+  url: https://demo.nlp.insightera.co.th/
+  type: hosted-demo
+  description: >-
+    A Vue single-page application titled "ELI Showcase", meta-described "ELI Platform provides
+    RESTful NLP services", that exercises the NLP endpoints through a UI. It is the only working
+    hands-on surface for the API and requires no signup. It calls
+    https://nlp.insightera.co.th/api and links the reference at
+    https://nlp.insightera.co.th/docs/v1.0/.
+  executes_against: production
+test_values:
+  published: false
+  note: >-
+    No magic test inputs, fixture documents, sample images for OCR, or seed training datasets are
+    published. The spec's parameter `default` values are ordinary example payloads, not reserved
+    test values with defined behaviour.
+test_clocks:
+  supported: false
+fixtures_and_triggers:
+  supported: false
+model_training_note: >-
+  The `classification` operations create real, persistent, customer-owned models on the production
+  service. There is no scratch or throwaway namespace, so evaluating train/retrain/delete means
+  mutating production state under the caller's own token.
+gaps:
+- No sandbox host or test mode.
+- The published reference's own pre-filled credential cannot execute a call.
+- No test data, fixtures or triggers of any kind.

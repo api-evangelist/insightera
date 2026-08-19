@@ -1,0 +1,55 @@
+generated: '2026-08-13'
+method: generated
+source: openapi/insightera-nlp-platform-openapi.yml
+note: >-
+  Packaged Agent Skills for the InsightEra NLP Platform API, generated from the provider's
+  published Swagger 2.0 contract plus the conventions, errors, rate-limit and sandbox artifacts in
+  this repo. InsightEra publishes no AGENTS.md or skill files of its own. Every step is grounded in
+  a method+path verified present in the contract; the contract declares no operationIds, so paths
+  are the identifiers (stable ids exist only in overlays/insightera-nlp-platform-overlay.yaml and
+  are ours, not the provider's).
+skills:
+- file: insightera-analyze-thai-text.md
+  name: Analyze Thai text with the InsightEra NLP Platform
+  api: openapi/insightera-nlp-platform-openapi.yml
+  operations:
+  - POST /nlp/cleaning
+  - POST /nlp/tokenize
+  - POST /nlp/pos
+  - POST /nlp/ner
+  - POST /nlp/sentiment-new
+- file: insightera-train-and-predict-classifier.md
+  name: Train and run a custom text classifier on InsightEra
+  api: openapi/insightera-nlp-platform-openapi.yml
+  operations:
+  - POST /nlp/classification/train
+  - POST /nlp/classification/train-with-file
+  - GET /nlp/classification/token
+  - POST /nlp/classification/model
+  - POST /nlp/classification/predict
+  - POST /nlp/classification/retrain
+  - POST /nlp/classification/change-model-name
+  - POST /nlp/classification/delete
+- file: insightera-extract-structured-contact-data.md
+  name: Extract structured Thai contact data from text and images
+  api: openapi/insightera-nlp-platform-openapi.yml
+  operations:
+  - POST /nlp/ocr
+  - POST /nlp/cleaning
+  - POST /nlp/address-extractor
+  - POST /nlp/extract-email
+  - POST /nlp/datetime-parser-new
+coverage:
+  skills: 3
+  operations_covered: 17
+  operations_total: 23
+  uncovered:
+  - POST /nlp/clustering
+  - POST /nlp/common-phrase
+  - POST /nlp/country
+  - POST /nlp/similar
+  - POST /nlp/spell-correction
+  - POST /nlp/qa
+  uncovered_note: >-
+    Left uncovered as single-call utilities that need no multi-step operating instructions.
+    POST /nlp/qa is additionally marked "coming soon" in the contract and is not available.
