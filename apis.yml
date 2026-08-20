@@ -65,6 +65,17 @@ tags:
 - Data Analytics
 - Customer Data Platform
 - CRM
+- Chatbots
+- Social Media Management
+- Natural Language Processing
+- Artificial Intelligence
+tags_raw:
+- Company
+- Marketing Technology
+- Social Listening
+- Data Analytics
+- Customer Data Platform
+- CRM
 - Chatbot
 - Social Media Management
 - Natural Language Processing
@@ -87,6 +98,15 @@ apis:
   humanURL: https://nlp.insightera.co.th/docs/v1.0/
   baseURL: https://nlp.insightera.co.th/api
   tags:
+  - Natural Language Processing
+  - Thai NLP
+  - Text Analytics
+  - Sentiment Analysis
+  - Named Entity Recognition
+  - Text Classification
+  - OCR
+  - Machine-Learning
+  tags_raw:
   - Natural Language Processing
   - Thai NLP
   - Text Analytics
