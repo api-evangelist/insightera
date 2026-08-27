@@ -81,43 +81,34 @@ tags_raw:
 - Natural Language Processing
 - Artificial Intelligence
 apis:
-- name: InsightEra NLP Platform API
-  description: >-
-    RESTful Thai natural-language-processing service, branded "ELI" in
-    InsightEra's own showcase, published with a live Swagger 2.0 contract at
-    nlp.insightera.co.th/docs/v1.0/. Twenty-three operations across two
-    resource groups: an `nlp` group of stateless text services (Thai text
-    tokenization, part-of-speech tagging, named entity recognition, sentiment
-    analysis, spell correction, text cleaning, clustering, common-phrase
-    detection, country detection, datetime parsing, address extraction, email
-    extraction, similar-word lookup, OCR and a QA endpoint marked coming soon)
-    and a `classification` group that trains, retrains, inspects, renames and
-    deletes customer-owned text-classification models and runs predictions
-    against them. Every operation authenticates with a required `token` query
-    parameter.
+- aid: insightera:insightera-classification-api
+  name: InsightEra Classification API
+  description: The classification API from InsightEra — 8 operation(s) for classification.
   humanURL: https://nlp.insightera.co.th/docs/v1.0/
   baseURL: https://nlp.insightera.co.th/api
   tags:
-  - Natural Language Processing
-  - Thai NLP
-  - Text Analytics
-  - Sentiment Analysis
-  - Named Entity Recognition
-  - Text Classification
-  - OCR
-  - Machine-Learning
-  tags_raw:
-  - Natural Language Processing
-  - Thai NLP
-  - Text Analytics
-  - Sentiment Analysis
-  - Named Entity Recognition
-  - Text Classification
-  - OCR
-  - Machine Learning
+  - classification
   properties:
   - type: OpenAPI
-    url: openapi/insightera-nlp-platform-openapi.yml
+    url: openapi/insightera-classification-api-openapi.yml
+  - type: Swagger
+    url: openapi/_original/insightera-nlp-platform-openapi.json
+  - type: APIReference
+    url: https://nlp.insightera.co.th/docs/v1.0/
+  - type: Documentation
+    url: https://nlp.insightera.co.th/docs/v1.0/
+  - type: Console
+    url: https://demo.nlp.insightera.co.th/
+- aid: insightera:insightera-nlp-api
+  name: InsightEra Nlp API
+  description: The nlp API from InsightEra — 15 operation(s) for nlp.
+  humanURL: https://nlp.insightera.co.th/docs/v1.0/
+  baseURL: https://nlp.insightera.co.th/api
+  tags:
+  - nlp
+  properties:
+  - type: OpenAPI
+    url: openapi/insightera-nlp-api-openapi.yml
   - type: Swagger
     url: openapi/_original/insightera-nlp-platform-openapi.json
   - type: APIReference
