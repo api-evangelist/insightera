@@ -77,7 +77,7 @@ tags:
 - Data Analytics
 - Customer Data Platform
 - CRM
-- Chatbots
+- Chatbot
 - Social Media Management
 - Natural Language Processing
 - Artificial Intelligence
@@ -99,6 +99,8 @@ apis:
   humanURL: https://nlp.insightera.co.th/docs/v1.0/
   baseURL: https://nlp.insightera.co.th/api
   tags:
+  - Classification
+  tags_raw:
   - classification
   properties:
   - type: OpenAPI
@@ -117,6 +119,8 @@ apis:
   humanURL: https://nlp.insightera.co.th/docs/v1.0/
   baseURL: https://nlp.insightera.co.th/api
   tags:
+  - NLP
+  tags_raw:
   - nlp
   properties:
   - type: OpenAPI
