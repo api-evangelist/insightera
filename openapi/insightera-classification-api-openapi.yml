@@ -1,0 +1,659 @@
+openapi: 3.2.0
+info:
+  description: NLP APIs available on InsightEra NLP Platform
+  title: NLP Platform Classification API
+  termsOfService: http://swagger.io/terms/
+  contact:
+    name: API Support
+    email: dev@insightera.co.th
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+servers:
+- url: https://nlp.insightera.co.th/api
+tags:
+- name: classification
+paths:
+  /nlp/classification/change-model-name:
+    post:
+      description: 'Change existing model name.
+
+        * <i>modelId</i>: An ID from training service which represent an actual model to be used.'
+      tags:
+      - classification
+      summary: Change model name
+      parameters:
+      - description: Token
+        name: token
+        in: query
+        required: true
+        schema:
+          type: string
+          default: 97051ade29a61c860f57dc9443128464
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/record.SwagClassModelNameORecord'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/record.SwagClassModelNameRecord'
+        description: Input
+        required: true
+  /nlp/classification/delete:
+    post:
+      description: Delete model
+      tags:
+      - classification
+      summary: Delete model
+      parameters:
+      - description: Token
+        name: token
+        in: query
+        required: true
+        schema:
+          type: string
+          default: 97051ade29a61c860f57dc9443128464
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/record.SwagClassDeleteResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/record.SwagClassModelInput'
+        description: Input
+        required: true
+  /nlp/classification/model:
+    post:
+      description: 'Retrieve model details:
+
+        * Model name
+
+        * Model status
+
+        * Created date
+
+        * Number of samples in each class'
+      tags:
+      - classification
+      summary: Model detail
+      parameters:
+      - description: Token
+        name: token
+        in: query
+        required: true
+        schema:
+          type: string
+          default: 97051ade29a61c860f57dc9443128464
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/record.SwagClassModelOutput'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/record.SwagClassModelInput'
+        description: Input
+        required: true
+  /nlp/classification/predict:
+    post:
+      description: 'Predict classes of input texts using a model previously trained. In each training request, a user will receive a model ID. The ID is required for this service so that it knows which model to use for prediction. Model ID and a secret token must be matched (the same token used when trained a model) in order to continue using this service.
+
+        * <i>modelId</i>: An ID from training service which represent an actual model to be used.'
+      tags:
+      - classification
+      summary: Predict
+      parameters:
+      - description: Token
+        name: token
+        in: query
+        required: true
+        schema:
+          type: string
+          default: 97051ade29a61c860f57dc9443128464
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/record.SwagClassPredictOutput'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/record.SwagClassPredictInput'
+        description: Input
+        required: true
+  /nlp/classification/retrain:
+    post:
+      description: continue training a model based on an existing model. Users should provide only new information the model has never learnt before. A <i>model_id</i> must be provided otherwise the service will response an error.
+      tags:
+      - classification
+      summary: Retrain
+      parameters:
+      - description: Token
+        name: token
+        in: query
+        required: true
+        schema:
+          type: string
+          default: 97051ade29a61c860f57dc9443128464
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/record.SwagClassRetrainResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/record.SwagClassRetrainRecord'
+        description: Input
+        required: true
+  /nlp/classification/token:
+    get:
+      description: 'Retrieve all models belong to a given token:
+
+        * Model name
+
+        * Model status
+
+        * Created date
+
+        * Number of sample in each class'
+      tags:
+      - classification
+      summary: Model Details by Token
+      parameters:
+      - description: Token
+        name: token
+        in: query
+        required: true
+        schema:
+          type: string
+          default: 97051ade29a61c860f57dc9443128464
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/record.SwagClassTokenResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /nlp/classification/train:
+    post:
+      description: 'Train a classification model. The general idea begins with a user provides dataset with labels, our service uses these information to build a classification model and give back a model ID. A user then use this model ID with prediction service to have model classified users'' text. Every classification models can be accessed only if users provide the same token used during training process. This means all models are protected. Only those who have access to a secret token can use the model.
+
+        * <i>model_name</i> (optional) - if not provided, <i>model_id</i> will be used as <i>model_name</i>'
+      tags:
+      - classification
+      summary: Train
+      parameters:
+      - description: Token
+        name: token
+        in: query
+        required: true
+        schema:
+          type: string
+          default: 97051ade29a61c860f57dc9443128464
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/record.SwagClassTrainResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/record.SwagClassTrainRecord'
+        description: Input
+        required: true
+  /nlp/classification/train-with-file:
+    post:
+      description: 'Train a classification model with file. The general idea begins with a user provides dataset with labels, our service uses these information to build a classification model and give back a model ID. A user then use this model ID with prediction service to have model classified users'' text. Every classification models can be accessed only if users provide the same token used during training process. This means all models are protected. Only those who have access to a secret token can use the model.
+
+        * <i>model_name</i> (optional) - if not provided, <i>model_id</i> will be used as <i>model_name</i>
+
+        * <i>file</i> - 2 column file with classname and value in xlsx or csv format (comma delimited)'
+      tags:
+      - classification
+      summary: Train with file
+      parameters:
+      - description: Token
+        name: token
+        in: query
+        required: true
+        schema:
+          type: string
+          default: 97051ade29a61c860f57dc9443128464
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/record.SwagClassTrainResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  description: file
+                  format: binary
+                model_name:
+                  type: string
+                  description: model_name
+              required:
+              - file
+components:
+  schemas:
+    record.SwagClassDeleteResult:
+      type: object
+      properties:
+        error_msg:
+          type: string
+        result:
+          type: string
+          example: ok
+    record.SwagClassModelOutput:
+      type: object
+      properties:
+        message:
+          type: object
+          properties:
+            created_at:
+              type: object
+              properties:
+                $date:
+                  type: integer
+                  example: 1571134602455
+            modelId:
+              type: string
+              example: m-dfcf872c-ef34-11e9-ad3b-84a93e037981
+            modelName:
+              type: string
+              example: education_vs_politic
+            trains:
+              type: integer
+              example: 2000
+    record.SwagClassModelInput:
+      type: object
+      properties:
+        model_id:
+          type: string
+          example: m-dfcf872c-ef34-11e9-ad3b-84a93e037981
+    record.SwagClassRetrainRecord:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              class_name:
+                type: string
+                example: education
+              samples:
+                type: array
+                items:
+                  type: string
+                example:
+                - การศึกษาของเมืองไทยวันนี้...
+                - ครูมีหน้าที่อบรมสั่งสอนนักเรียน...
+                - เด็กไทยทุกคนมีหน้าที่ต้องไปโรงเรียน...
+        is_sync:
+          type: boolean
+          example: true
+        modelId:
+          type: string
+          example: m-123e4567-e89b-12d3-a456-426655440000
+    record.SwagClassTrainResult:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            model_id:
+              type: string
+              example: m-123e4567-e89b-12d3-a456-426655440000
+    record.SwagClassRetrainResult:
+      type: object
+      properties:
+        result:
+          type: string
+          example: success
+    record.SwagClassModelNameRecord:
+      type: object
+      properties:
+        model_id:
+          type: string
+          example: m-6069d024-368d-11ea-978f-2e728ce88125
+        model_name:
+          type: string
+          example: Hello world !
+    record.SwagClassPredictOutput:
+      type: object
+      properties:
+        message:
+          type: object
+          properties:
+            model_id:
+              type: string
+              example: m-dfcf872c-ef34-11e9-ad3b-84a93e037981
+            output:
+              type: array
+              items:
+                type: object
+                properties:
+                  classes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        class_id:
+                          type: integer
+                          example: 0
+                        class_name:
+                          type: string
+                          example: education
+                        probability:
+                          type: number
+                          example: 0.9243098131705381
+                  text:
+                    type: string
+                    example: การศึกษาเป็นสิ่งที่จำเป็นหรือไม่...
+            result:
+              type: string
+              example: ok
+    record.SwagClassPredictInput:
+      type: object
+      properties:
+        model_id:
+          type: string
+          example: m-dfcf872c-ef34-11e9-ad3b-84a93e037981
+        samples:
+          type: array
+          items:
+            type: string
+          example:
+          - การศึกษาเป็นสิ่งที่จำเป็นหรือไม่...
+    record.SwagClassTrainRecord:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              class_name:
+                type: string
+                example: education
+              samples:
+                type: array
+                items:
+                  type: string
+                example:
+                - การศึกษาของเมืองไทยวันนี้...
+                - ครูมีหน้าที่อบรมสั่งสอนนักเรียน...
+                - เด็กไทยทุกคนมีหน้าที่ต้องไปโรงเรียน...
+        is_sync:
+          type: boolean
+          example: true
+        model_name:
+          description: ModelID   string `json:"modelId" example:"null"`
+          type: string
+          example: education_vs_politic
+    record.SwagClassTokenResult:
+      type: object
+      properties:
+        model_id_list:
+          type: array
+          items:
+            type: object
+            properties:
+              created_at:
+                type: string
+                example: Fri, 27 Dec 2019 04:49:20 GMT
+              model_id:
+                type: string
+                example: m-3ebd1518-2864-11ea-aedd-02420a000255
+              model_name:
+                type: string
+                example: test ja
+              total_class:
+                type: integer
+                example: 2
+              updated_at:
+                type: string
+                example: Fri, 27 Dec 2019 04:49:23 GMT
+    record.SwagClassModelNameORecord:
+      type: object
+      properties:
+        message:
+          type: object
+          properties:
+            model_id:
+              type: string
+              example: m-6069d024-368d-11ea-978f-2e728ce88125
+            result:
+              type: string
+              example: ok
