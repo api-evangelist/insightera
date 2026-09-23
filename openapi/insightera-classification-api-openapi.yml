@@ -13,15 +13,15 @@ info:
 servers:
 - url: https://nlp.insightera.co.th/api
 tags:
-- name: classification
+- name: Classification
 paths:
   /nlp/classification/change-model-name:
     post:
       description: 'Change existing model name.
 
-        * <i>modelId</i>: An ID from training service which represent an actual model to be used.'
+        * modelId: An ID from training service which represent an actual model to be used.'
       tags:
-      - classification
+      - Classification
       summary: Change model name
       parameters:
       - description: Token
@@ -70,11 +70,12 @@ paths:
               $ref: '#/components/schemas/record.SwagClassModelNameRecord'
         description: Input
         required: true
+      operationId: postNlpClassificationChangeModelName
+      x-operation-id-source: derived
   /nlp/classification/delete:
     post:
-      description: Delete model
       tags:
-      - classification
+      - Classification
       summary: Delete model
       parameters:
       - description: Token
@@ -123,6 +124,8 @@ paths:
               $ref: '#/components/schemas/record.SwagClassModelInput'
         description: Input
         required: true
+      operationId: postNlpClassificationDelete
+      x-operation-id-source: derived
   /nlp/classification/model:
     post:
       description: 'Retrieve model details:
@@ -135,7 +138,7 @@ paths:
 
         * Number of samples in each class'
       tags:
-      - classification
+      - Classification
       summary: Model detail
       parameters:
       - description: Token
@@ -184,13 +187,15 @@ paths:
               $ref: '#/components/schemas/record.SwagClassModelInput'
         description: Input
         required: true
+      operationId: postNlpClassificationModel
+      x-operation-id-source: derived
   /nlp/classification/predict:
     post:
       description: 'Predict classes of input texts using a model previously trained. In each training request, a user will receive a model ID. The ID is required for this service so that it knows which model to use for prediction. Model ID and a secret token must be matched (the same token used when trained a model) in order to continue using this service.
 
-        * <i>modelId</i>: An ID from training service which represent an actual model to be used.'
+        * modelId: An ID from training service which represent an actual model to be used.'
       tags:
-      - classification
+      - Classification
       summary: Predict
       parameters:
       - description: Token
@@ -239,11 +244,13 @@ paths:
               $ref: '#/components/schemas/record.SwagClassPredictInput'
         description: Input
         required: true
+      operationId: postNlpClassificationPredict
+      x-operation-id-source: derived
   /nlp/classification/retrain:
     post:
-      description: continue training a model based on an existing model. Users should provide only new information the model has never learnt before. A <i>model_id</i> must be provided otherwise the service will response an error.
+      description: continue training a model based on an existing model. Users should provide only new information the model has never learnt before. A model_id must be provided otherwise the service will response an error.
       tags:
-      - classification
+      - Classification
       summary: Retrain
       parameters:
       - description: Token
@@ -292,6 +299,8 @@ paths:
               $ref: '#/components/schemas/record.SwagClassRetrainRecord'
         description: Input
         required: true
+      operationId: postNlpClassificationRetrain
+      x-operation-id-source: derived
   /nlp/classification/token:
     get:
       description: 'Retrieve all models belong to a given token:
@@ -304,7 +313,7 @@ paths:
 
         * Number of sample in each class'
       tags:
-      - classification
+      - Classification
       summary: Model Details by Token
       parameters:
       - description: Token
@@ -345,13 +354,15 @@ paths:
             application/json:
               schema:
                 type: string
+      operationId: getNlpClassificationToken
+      x-operation-id-source: derived
   /nlp/classification/train:
     post:
       description: 'Train a classification model. The general idea begins with a user provides dataset with labels, our service uses these information to build a classification model and give back a model ID. A user then use this model ID with prediction service to have model classified users'' text. Every classification models can be accessed only if users provide the same token used during training process. This means all models are protected. Only those who have access to a secret token can use the model.
 
-        * <i>model_name</i> (optional) - if not provided, <i>model_id</i> will be used as <i>model_name</i>'
+        * model_name (optional) - if not provided, model_id will be used as model_name'
       tags:
-      - classification
+      - Classification
       summary: Train
       parameters:
       - description: Token
@@ -400,15 +411,17 @@ paths:
               $ref: '#/components/schemas/record.SwagClassTrainRecord'
         description: Input
         required: true
+      operationId: postNlpClassificationTrain
+      x-operation-id-source: derived
   /nlp/classification/train-with-file:
     post:
       description: 'Train a classification model with file. The general idea begins with a user provides dataset with labels, our service uses these information to build a classification model and give back a model ID. A user then use this model ID with prediction service to have model classified users'' text. Every classification models can be accessed only if users provide the same token used during training process. This means all models are protected. Only those who have access to a secret token can use the model.
 
-        * <i>model_name</i> (optional) - if not provided, <i>model_id</i> will be used as <i>model_name</i>
+        * model_name (optional) - if not provided, model_id will be used as model_name
 
-        * <i>file</i> - 2 column file with classname and value in xlsx or csv format (comma delimited)'
+        * file - 2 column file with classname and value in xlsx or csv format (comma delimited)'
       tags:
-      - classification
+      - Classification
       summary: Train with file
       parameters:
       - description: Token
@@ -464,8 +477,60 @@ paths:
                   description: model_name
               required:
               - file
+      operationId: postNlpClassificationTrainWithFile
+      x-operation-id-source: derived
 components:
   schemas:
+    record.SwagClassRetrainResult:
+      type: object
+      properties:
+        result:
+          type: string
+          example: success
+    record.SwagClassModelNameORecord:
+      type: object
+      properties:
+        message:
+          type: object
+          properties:
+            model_id:
+              type: string
+              example: m-6069d024-368d-11ea-978f-2e728ce88125
+            result:
+              type: string
+              example: ok
+    record.SwagClassTrainRecord:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              class_name:
+                type: string
+                example: education
+              samples:
+                type: array
+                items:
+                  type: string
+                example:
+                - การศึกษาของเมืองไทยวันนี้...
+                - ครูมีหน้าที่อบรมสั่งสอนนักเรียน...
+                - เด็กไทยทุกคนมีหน้าที่ต้องไปโรงเรียน...
+        is_sync:
+          type: boolean
+          example: true
+        model_name:
+          description: ModelID   string `json:"modelId" example:"null"`
+          type: string
+          example: education_vs_politic
+    record.SwagClassModelInput:
+      type: object
+      properties:
+        model_id:
+          type: string
+          example: m-dfcf872c-ef34-11e9-ad3b-84a93e037981
     record.SwagClassDeleteResult:
       type: object
       properties:
@@ -474,33 +539,6 @@ components:
         result:
           type: string
           example: ok
-    record.SwagClassModelOutput:
-      type: object
-      properties:
-        message:
-          type: object
-          properties:
-            created_at:
-              type: object
-              properties:
-                $date:
-                  type: integer
-                  example: 1571134602455
-            modelId:
-              type: string
-              example: m-dfcf872c-ef34-11e9-ad3b-84a93e037981
-            modelName:
-              type: string
-              example: education_vs_politic
-            trains:
-              type: integer
-              example: 2000
-    record.SwagClassModelInput:
-      type: object
-      properties:
-        model_id:
-          type: string
-          example: m-dfcf872c-ef34-11e9-ad3b-84a93e037981
     record.SwagClassRetrainRecord:
       type: object
       properties:
@@ -526,6 +564,29 @@ components:
         modelId:
           type: string
           example: m-123e4567-e89b-12d3-a456-426655440000
+    record.SwagClassTokenResult:
+      type: object
+      properties:
+        model_id_list:
+          type: array
+          items:
+            type: object
+            properties:
+              created_at:
+                type: string
+                example: Fri, 27 Dec 2019 04:49:20 GMT
+              model_id:
+                type: string
+                example: m-3ebd1518-2864-11ea-aedd-02420a000255
+              model_name:
+                type: string
+                example: test ja
+              total_class:
+                type: integer
+                example: 2
+              updated_at:
+                type: string
+                example: Fri, 27 Dec 2019 04:49:23 GMT
     record.SwagClassTrainResult:
       type: object
       properties:
@@ -535,12 +596,27 @@ components:
             model_id:
               type: string
               example: m-123e4567-e89b-12d3-a456-426655440000
-    record.SwagClassRetrainResult:
+    record.SwagClassModelOutput:
       type: object
       properties:
-        result:
-          type: string
-          example: success
+        message:
+          type: object
+          properties:
+            created_at:
+              type: object
+              properties:
+                $date:
+                  type: integer
+                  example: 1571134602455
+            modelId:
+              type: string
+              example: m-dfcf872c-ef34-11e9-ad3b-84a93e037981
+            modelName:
+              type: string
+              example: education_vs_politic
+            trains:
+              type: integer
+              example: 2000
     record.SwagClassModelNameRecord:
       type: object
       properties:
@@ -550,6 +626,18 @@ components:
         model_name:
           type: string
           example: Hello world !
+    record.SwagClassPredictInput:
+      type: object
+      properties:
+        model_id:
+          type: string
+          example: m-dfcf872c-ef34-11e9-ad3b-84a93e037981
+        samples:
+          type: array
+          items:
+            type: string
+          example:
+          - การศึกษาเป็นสิ่งที่จำเป็นหรือไม่...
     record.SwagClassPredictOutput:
       type: object
       properties:
@@ -581,79 +669,6 @@ components:
                   text:
                     type: string
                     example: การศึกษาเป็นสิ่งที่จำเป็นหรือไม่...
-            result:
-              type: string
-              example: ok
-    record.SwagClassPredictInput:
-      type: object
-      properties:
-        model_id:
-          type: string
-          example: m-dfcf872c-ef34-11e9-ad3b-84a93e037981
-        samples:
-          type: array
-          items:
-            type: string
-          example:
-          - การศึกษาเป็นสิ่งที่จำเป็นหรือไม่...
-    record.SwagClassTrainRecord:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              class_name:
-                type: string
-                example: education
-              samples:
-                type: array
-                items:
-                  type: string
-                example:
-                - การศึกษาของเมืองไทยวันนี้...
-                - ครูมีหน้าที่อบรมสั่งสอนนักเรียน...
-                - เด็กไทยทุกคนมีหน้าที่ต้องไปโรงเรียน...
-        is_sync:
-          type: boolean
-          example: true
-        model_name:
-          description: ModelID   string `json:"modelId" example:"null"`
-          type: string
-          example: education_vs_politic
-    record.SwagClassTokenResult:
-      type: object
-      properties:
-        model_id_list:
-          type: array
-          items:
-            type: object
-            properties:
-              created_at:
-                type: string
-                example: Fri, 27 Dec 2019 04:49:20 GMT
-              model_id:
-                type: string
-                example: m-3ebd1518-2864-11ea-aedd-02420a000255
-              model_name:
-                type: string
-                example: test ja
-              total_class:
-                type: integer
-                example: 2
-              updated_at:
-                type: string
-                example: Fri, 27 Dec 2019 04:49:23 GMT
-    record.SwagClassModelNameORecord:
-      type: object
-      properties:
-        message:
-          type: object
-          properties:
-            model_id:
-              type: string
-              example: m-6069d024-368d-11ea-978f-2e728ce88125
             result:
               type: string
               example: ok

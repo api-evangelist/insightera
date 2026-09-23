@@ -1,0 +1,26 @@
+{
+  "provider": "insightera",
+  "sources": [
+    "_original/insightera-nlp-platform-openapi.json"
+  ],
+  "outputs": [
+    "insightera-classification-api-openapi.yml",
+    "insightera-nlp-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "insightera-nlp-platform-openapi.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "insightera-nlp-platform-openapi.json: declared missing tag: classification",
+    "insightera-nlp-platform-openapi.json: declared missing tag: nlp",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "_original/insightera-nlp-platform-openapi.yml: archived document superseded by a larger archived document",
+    "insightera-classification-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "insightera-nlp-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}
