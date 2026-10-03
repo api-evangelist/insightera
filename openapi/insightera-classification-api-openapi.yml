@@ -481,84 +481,15 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    record.SwagClassModelInput:
+    record.SwagClassModelNameRecord:
       type: object
       properties:
         model_id:
           type: string
-          example: m-dfcf872c-ef34-11e9-ad3b-84a93e037981
-    record.SwagClassTrainResult:
-      type: object
-      properties:
-        result:
-          type: object
-          properties:
-            model_id:
-              type: string
-              example: m-123e4567-e89b-12d3-a456-426655440000
-    record.SwagClassPredictInput:
-      type: object
-      properties:
-        model_id:
-          type: string
-          example: m-dfcf872c-ef34-11e9-ad3b-84a93e037981
-        samples:
-          type: array
-          items:
-            type: string
-          example:
-          - การศึกษาเป็นสิ่งที่จำเป็นหรือไม่...
-    record.SwagClassRetrainRecord:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              class_name:
-                type: string
-                example: education
-              samples:
-                type: array
-                items:
-                  type: string
-                example:
-                - การศึกษาของเมืองไทยวันนี้...
-                - ครูมีหน้าที่อบรมสั่งสอนนักเรียน...
-                - เด็กไทยทุกคนมีหน้าที่ต้องไปโรงเรียน...
-        is_sync:
-          type: boolean
-          example: true
-        modelId:
-          type: string
-          example: m-123e4567-e89b-12d3-a456-426655440000
-    record.SwagClassTrainRecord:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              class_name:
-                type: string
-                example: education
-              samples:
-                type: array
-                items:
-                  type: string
-                example:
-                - การศึกษาของเมืองไทยวันนี้...
-                - ครูมีหน้าที่อบรมสั่งสอนนักเรียน...
-                - เด็กไทยทุกคนมีหน้าที่ต้องไปโรงเรียน...
-        is_sync:
-          type: boolean
-          example: true
+          example: m-6069d024-368d-11ea-978f-2e728ce88125
         model_name:
-          description: ModelID   string `json:"modelId" example:"null"`
           type: string
-          example: education_vs_politic
+          example: Hello world !
     record.SwagClassModelOutput:
       type: object
       properties:
@@ -580,15 +511,76 @@ components:
             trains:
               type: integer
               example: 2000
-    record.SwagClassModelNameRecord:
+    record.SwagClassDeleteResult:
+      type: object
+      properties:
+        error_msg:
+          type: string
+        result:
+          type: string
+          example: ok
+    record.SwagClassTrainResult:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            model_id:
+              type: string
+              example: m-123e4567-e89b-12d3-a456-426655440000
+    record.SwagClassRetrainResult:
+      type: object
+      properties:
+        result:
+          type: string
+          example: success
+    record.SwagClassTokenResult:
+      type: object
+      properties:
+        model_id_list:
+          type: array
+          items:
+            type: object
+            properties:
+              created_at:
+                type: string
+                example: Fri, 27 Dec 2019 04:49:20 GMT
+              model_id:
+                type: string
+                example: m-3ebd1518-2864-11ea-aedd-02420a000255
+              model_name:
+                type: string
+                example: test ja
+              total_class:
+                type: integer
+                example: 2
+              updated_at:
+                type: string
+                example: Fri, 27 Dec 2019 04:49:23 GMT
+    record.SwagClassPredictInput:
       type: object
       properties:
         model_id:
           type: string
-          example: m-6069d024-368d-11ea-978f-2e728ce88125
-        model_name:
-          type: string
-          example: Hello world !
+          example: m-dfcf872c-ef34-11e9-ad3b-84a93e037981
+        samples:
+          type: array
+          items:
+            type: string
+          example:
+          - การศึกษาเป็นสิ่งที่จำเป็นหรือไม่...
+    record.SwagClassModelNameORecord:
+      type: object
+      properties:
+        message:
+          type: object
+          properties:
+            model_id:
+              type: string
+              example: m-6069d024-368d-11ea-978f-2e728ce88125
+            result:
+              type: string
+              example: ok
     record.SwagClassPredictOutput:
       type: object
       properties:
@@ -623,52 +615,60 @@ components:
             result:
               type: string
               example: ok
-    record.SwagClassRetrainResult:
+    record.SwagClassTrainRecord:
       type: object
       properties:
-        result:
-          type: string
-          example: success
-    record.SwagClassTokenResult:
-      type: object
-      properties:
-        model_id_list:
+        data:
           type: array
           items:
             type: object
             properties:
-              created_at:
+              class_name:
                 type: string
-                example: Fri, 27 Dec 2019 04:49:20 GMT
-              model_id:
-                type: string
-                example: m-3ebd1518-2864-11ea-aedd-02420a000255
-              model_name:
-                type: string
-                example: test ja
-              total_class:
-                type: integer
-                example: 2
-              updated_at:
-                type: string
-                example: Fri, 27 Dec 2019 04:49:23 GMT
-    record.SwagClassDeleteResult:
+                example: education
+              samples:
+                type: array
+                items:
+                  type: string
+                example:
+                - การศึกษาของเมืองไทยวันนี้...
+                - ครูมีหน้าที่อบรมสั่งสอนนักเรียน...
+                - เด็กไทยทุกคนมีหน้าที่ต้องไปโรงเรียน...
+        is_sync:
+          type: boolean
+          example: true
+        model_name:
+          description: ModelID   string `json:"modelId" example:"null"`
+          type: string
+          example: education_vs_politic
+    record.SwagClassRetrainRecord:
       type: object
       properties:
-        error_msg:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              class_name:
+                type: string
+                example: education
+              samples:
+                type: array
+                items:
+                  type: string
+                example:
+                - การศึกษาของเมืองไทยวันนี้...
+                - ครูมีหน้าที่อบรมสั่งสอนนักเรียน...
+                - เด็กไทยทุกคนมีหน้าที่ต้องไปโรงเรียน...
+        is_sync:
+          type: boolean
+          example: true
+        modelId:
           type: string
-        result:
-          type: string
-          example: ok
-    record.SwagClassModelNameORecord:
+          example: m-123e4567-e89b-12d3-a456-426655440000
+    record.SwagClassModelInput:
       type: object
       properties:
-        message:
-          type: object
-          properties:
-            model_id:
-              type: string
-              example: m-6069d024-368d-11ea-978f-2e728ce88125
-            result:
-              type: string
-              example: ok
+        model_id:
+          type: string
+          example: m-dfcf872c-ef34-11e9-ad3b-84a93e037981
