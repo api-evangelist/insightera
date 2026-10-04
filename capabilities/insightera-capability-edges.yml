@@ -1,0 +1,35 @@
+slug: insightera
+provider: InsightEra
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Classification
+  spec_file: insightera-classification-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.85
+  evidence: '"POST /nlp/classification/train  Train", "POST /nlp/classification/retrain  Retrain", "POST
+    /nlp/classification/predict  Predict", "Delete model"'
+  reason: Train/retrain/predict/model-metadata operations are an ML model lifecycle (MLOps) surface, matching
+    Artificial Intelligence Management.
+- tag: NLP
+  spec_file: insightera-nlp-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.78
+  evidence: '"POST /nlp/ner  Named Entity Recognition", "POST /nlp/sentiment-new  Sentiment analysis",
+    "POST /nlp/ocr  OCR"'
+  reason: A catalogue of inference endpoints (NER, sentiment, OCR, clustering, POS) delivered by an NLP
+    platform realises AI/ML capability delivery rather than any marketing-specific capability.

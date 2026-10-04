@@ -134,6 +134,9 @@ apis:
   - type: Console
     url: https://demo.nlp.insightera.co.th/
 common:
+- type: CapabilityMap
+  url: capabilities/insightera-capability-edges.yml
+  name: InsightEra Business Capability Map
 - type: AgenticAccess
   url: agentic-access/insightera-agentic-access.yml
 - type: DomainSecurity
