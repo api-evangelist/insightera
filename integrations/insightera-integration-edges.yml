@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/insightera/integrations
+- https://n8n.io/integrations/insightera/
+- https://composio.dev/toolkits/insightera
+- https://monid.ai/tools/insightera
+checked:
+- https://composio.dev/toolkits/insightera
+- https://monid.ai/tools/insightera
+- https://n8n.io/integrations/insightera/
+- https://zapier.com/apps/insightera/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
