@@ -119,9 +119,10 @@ apis:
   humanURL: https://nlp.insightera.co.th/docs/v1.0/
   baseURL: https://nlp.insightera.co.th/api
   tags:
-  - NLP
+  - Natural Language Processing
   tags_raw:
   - nlp
+  - NLP
   properties:
   - type: OpenAPI
     url: openapi/insightera-nlp-api-openapi.yml
