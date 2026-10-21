@@ -1,5 +1,5 @@
 generated: '2026-10-12'
-method: none
+method: searched
 source:
 - https://zapier.com/apps/insightera/integrations
 - https://n8n.io/integrations/insightera/
@@ -10,7 +10,37 @@ checked:
 - https://monid.ai/tools/insightera
 - https://n8n.io/integrations/insightera/
 - https://zapier.com/apps/insightera/integrations
+- https://app.hubspot.com/api/chirp-frontend-external/v1/gateway/com.hubspot.marketplace.personalization.rpc.PersonalizationPublicRpc/search
+- https://ecosystem.hubspot.com/marketplace/apps
+- https://ecosystem.hubspot.com/marketplace/explore?eco_PRODUCT_TYPE=APP&eco_CERTIFIED=true
+- https://ecosystem.hubspot.com/marketplace/solutions
 summary: null
 marketplace_apps: []
-edges: []
+edges:
+- partner_name: HubSpot Solutions Partner directory
+  partner: hubspot
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://ecosystem.hubspot.com/marketplace/solutions/g-able
+  category: HubSpot solutions partner
+  contract_reference:
+    register: HubSpot Solutions Partner directory (storefront public search JSON + profile:<slug> listing JSON)
+    standard: HubSpot Solutions Partner Program
+    spec_file: null
+    role: hubspot-solutions-partner
+    registered_name: INSIGHTERA
+    register_id: g-able
+    matched_domain: insightera.co.th
+    matched_by: domain+name-among-holders
+    partner_tier: 'HubSpot Solutions Partner: Gold'
+    identity_source: the profile's own companyUrl (no lookup)
+    signal_note: 'participation only: directory profile (tier, accreditations, ratings are context, never counted)'
+    context: {}
+    detected_by: sweep-hubspot-app-marketplace.py
+    detected: '2026-10-21'
+  detected_by: sweep-hubspot-app-marketplace.py
+  first_seen: '2026-10-21'
 templates: []
